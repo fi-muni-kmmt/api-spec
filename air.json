@@ -1,0 +1,1246 @@
+{
+  "swagger": "2.0",
+  "info": {
+      "version": "1.0.0",
+      "title": "muniair-f106 REST API",
+      "description": "**restdb.io Swagger documentation**"
+  },
+  "host": "muniair-f106.restdb.io",
+  "basePath": "/rest",
+  "schemes": [
+      "https"
+  ],
+"securityDefinitions": {
+  "apikey": {
+    "type": "apiKey",
+    "name": "x-apikey",
+    "in": "header",
+    "description": "Requests should pass an x-apikey header."
+  }
+},
+"security": [
+  {"apikey": []}
+],
+  "consumes": [
+      "application/json"
+  ],
+  "produces": [
+      "application/json"
+  ],
+"tags": [
+  {
+    "name": "users",
+    "description": "External Users of this application",
+    "externalDocs": {
+      "description": "Docs",
+      "url": "http://restdb.io/docs"
+    }
+  }
+  ,
+  {
+    "name": "wind-speed",
+    "description": "",
+    "externalDocs": {
+      "description": "Docs",
+      "url": "http://restdb.io/docs"
+    }
+  }
+  ,
+  {
+    "name": "air-pressure",
+    "description": "",
+    "externalDocs": {
+      "description": "Docs",
+      "url": "http://restdb.io/docs"
+    }
+  }
+  ,
+  {
+    "name": "air-moist",
+    "description": "",
+    "externalDocs": {
+      "description": "Docs",
+      "url": "http://restdb.io/docs"
+    }
+  }
+  
+],
+  "paths": {
+    "/users": {
+      "get": {
+        "summary": "Get many users documents. All or by query",
+        "description": "",
+        "tags": ["users"],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "type": "string",
+            "description": "Optional database query object. q={\"field\":\"val\"}",
+            "required": false
+          },
+          {
+            "name": "h",
+            "in": "query",
+            "type": "string",
+            "description": "Optional database query hint. h={\"$max\":1}",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/users"
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new users document",
+        "description": "",
+        "tags": ["users"],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/users"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/users"
+            }
+          },
+          "400": {
+            "description": "Validation error"
+          }
+        }
+      }
+      
+    },
+    "/users/{objectid}": {
+      "get": {
+        "summary": "Get one users document by _id",
+        "description": "",
+        "tags": ["users"],
+        
+        "parameters": [
+          {
+            "name": "objectid",
+            "in": "path",
+            "description": "Unique ObjectID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "h",
+            "in": "query",
+            "description": "Optional database query hint",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/users"
+              }
+            }
+          },
+          "404": {
+            "description": "Document not found"
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a users document by _id",
+        "description": "",
+        "tags": ["users"],
+        "parameters": [
+          {
+            "name": "objectid",
+            "in": "path",
+            "description": "Unique ObjectID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/users"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Modified ok"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "404": {
+            "description": "Document not found"
+          }
+        }
+      },
+      "patch": {
+        "summary": "Update field on a users document",
+        "description": "",
+        "tags": ["users"],
+        "parameters": [
+          {
+            "name": "objectid",
+            "in": "path",
+            "description": "Unique ObjectID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/users"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Modified ok"
+          },
+          "400": {
+            "description": "Validation error"
+          },
+          "404": {
+            "description": "Document not found"
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a users document by _id",
+        "description": "",
+        "tags": ["users"],
+        "parameters": [
+          {
+            "name": "objectid",
+            "in": "path",
+            "description": "Unique ObjectID",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted ok"
+          },
+          "404": {
+            "description": "Document not found"
+          }
+        }
+      }
+      
+    },
+    "/users/*": {
+      "delete": {
+        "summary": "Delete many users documents by query",
+        "description": "",
+        "tags": ["users"],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "type": "string",
+            "description": "",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Deleted ok"
+          }
+        }
+      }
+    }
+    ,
+    "/wind-speed": {
+      "get": {
+        "summary": "Get many wind-speed documents. All or by query",
+        "description": "",
+        "tags": ["wind-speed"],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "type": "string",
+            "description": "Optional database query object. q={\"field\":\"val\"}",
+            "required": false
+          },
+          {
+            "name": "h",
+            "in": "query",
+            "type": "string",
+            "description": "Optional database query hint. h={\"$max\":1}",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/windspeed"
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/wind-speed/{objectid}": {
+      "get": {
+        "summary": "Get one wind-speed document by _id",
+        "description": "",
+        "tags": ["wind-speed"],
+        
+        "parameters": [
+          {
+            "name": "objectid",
+            "in": "path",
+            "description": "Unique ObjectID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "h",
+            "in": "query",
+            "description": "Optional database query hint",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/windspeed"
+              }
+            }
+          },
+          "404": {
+            "description": "Document not found"
+          }
+        }
+      }
+    },
+    "/air-pressure": {
+      "get": {
+        "summary": "Get many air-pressure documents. All or by query",
+        "description": "",
+        "tags": ["air-pressure"],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "type": "string",
+            "description": "Optional database query object. q={\"field\":\"val\"}",
+            "required": false
+          },
+          {
+            "name": "h",
+            "in": "query",
+            "type": "string",
+            "description": "Optional database query hint. h={\"$max\":1}",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/airpressure"
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/air-pressure/{objectid}": {
+      "get": {
+        "summary": "Get one air-pressure document by _id",
+        "description": "",
+        "tags": ["air-pressure"],
+        
+        "parameters": [
+          {
+            "name": "objectid",
+            "in": "path",
+            "description": "Unique ObjectID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "h",
+            "in": "query",
+            "description": "Optional database query hint",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/airpressure"
+              }
+            }
+          },
+          "404": {
+            "description": "Document not found"
+          }
+        }
+      }
+    },
+    "/air-moist": {
+      "get": {
+        "summary": "Get many air-moist documents. All or by query",
+        "description": "",
+        "tags": ["air-moist"],
+        "parameters": [
+          {
+            "name": "q",
+            "in": "query",
+            "type": "string",
+            "description": "Optional database query object. q={\"field\":\"val\"}",
+            "required": false
+          },
+          {
+            "name": "h",
+            "in": "query",
+            "type": "string",
+            "description": "Optional database query hint. h={\"$max\":1}",
+            "required": false
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/airmoist"
+              }
+            }
+          },
+          "500": {
+            "description": "Server error"
+          }
+        }
+      }
+    },
+    "/air-moist/{objectid}": {
+      "get": {
+        "summary": "Get one air-moist document by _id",
+        "description": "",
+        "tags": ["air-moist"],
+        
+        "parameters": [
+          {
+            "name": "objectid",
+            "in": "path",
+            "description": "Unique ObjectID",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "h",
+            "in": "query",
+            "description": "Optional database query hint",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/airmoist"
+              }
+            }
+          },
+          "404": {
+            "description": "Document not found"
+          }
+        }
+      }
+    }
+    
+},
+"definitions": {
+  "users": {
+    "type": "object",
+    "required": ["email","active"],
+    "properties": {
+          
+            "email": {
+              "type": "string",
+              "description": "email address (created by system) (must be unique)"
+                              
+            }
+      ,
+          
+            "active": {
+              "type": "boolean",
+              "description": "user is activated (created by system) "
+                              
+            }
+      
+    }
+  }
+  ,
+  "windspeed": {
+    "type": "object",
+    
+    "properties": {
+          
+            "1": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "2": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "3": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "4": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "5": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "6": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "7": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "8": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "9": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "10": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "11": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "12": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "13": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "14": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "15": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "16": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "17": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "18": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "19": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "20": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "21": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "22": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "23": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "24": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "25": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "26": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "27": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "28": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "29": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "30": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "31": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "year": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "month": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      
+    }
+  }
+  ,
+  "airpressure": {
+    "type": "object",
+    
+    "properties": {
+          
+            "1": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "2": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "3": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "4": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "5": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "6": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "7": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "8": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "9": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "10": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "11": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "12": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "13": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "14": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "15": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "16": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "17": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "18": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "19": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "20": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "21": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "22": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "23": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "24": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "25": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "26": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "27": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "28": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "29": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "30": {
+              "type": "number",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "31": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "year": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "month": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      
+    }
+  }
+  ,
+  "airmoist": {
+    "type": "object",
+    
+    "properties": {
+          
+            "1": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "2": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "3": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "4": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "5": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "6": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "7": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "8": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "9": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "10": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "11": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "12": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "13": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "14": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "15": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "16": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "17": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "18": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "19": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "20": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "21": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "22": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "23": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "24": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "25": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "26": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "27": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "28": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "29": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "30": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "31": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "year": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      ,
+          
+            "month": {
+              "type": "integer",
+              "description": "Created by import "
+                              
+            }
+      
+    }
+  }
+  
+  }
+}
