@@ -63,7 +63,15 @@
       "url": "http://restdb.io/docs"
     }
   }
-  
+  ,
+    {
+      "name": "customdata",
+      "description": "",
+      "externalDocs": {
+        "description": "Docs",
+        "url": "http://restdb.io/docs"
+      }
+    }
 ],
   "paths": {
     "/users": {
@@ -504,7 +512,219 @@
         }
       }
     }
-    
+    ,
+      "/customdata": {
+        "get": {
+          "summary": "Get many customdata documents. All or by query",
+          "description": "",
+          "tags": ["customdata"],
+          "parameters": [
+            {
+              "name": "q",
+              "in": "query",
+              "type": "string",
+              "description": "Optional database query object. q={\"field\":\"val\"}",
+              "required": false
+            },
+            {
+              "name": "h",
+              "in": "query",
+              "type": "string",
+              "description": "Optional database query hint. h={\"$max\":1}",
+              "required": false
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/customdata"
+                }
+              }
+            },
+            "500": {
+              "description": "Server error"
+            }
+          }
+        },
+        "post": {
+          "summary": "Create a new customdata document",
+          "description": "",
+          "tags": ["customdata"],
+          "parameters": [
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/customdata"
+              }
+            }
+          ],
+          "responses": {
+            "201": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/customdata"
+              }
+            },
+            "400": {
+              "description": "Validation error"
+            }
+          }
+        }
+        
+      },
+      "/customdata/{objectid}": {
+        "get": {
+          "summary": "Get one customdata document by _id",
+          "description": "",
+          "tags": ["customdata"],
+          
+          "parameters": [
+            {
+              "name": "objectid",
+              "in": "path",
+              "description": "Unique ObjectID",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "h",
+              "in": "query",
+              "description": "Optional database query hint",
+              "required": false,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/customdata"
+                }
+              }
+            },
+            "404": {
+              "description": "Document not found"
+            }
+          }
+        },
+        "put": {
+          "summary": "Update a customdata document by _id",
+          "description": "",
+          "tags": ["customdata"],
+          "parameters": [
+            {
+              "name": "objectid",
+              "in": "path",
+              "description": "Unique ObjectID",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/customdata"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Modified ok"
+            },
+            "400": {
+              "description": "Validation error"
+            },
+            "404": {
+              "description": "Document not found"
+            }
+          }
+        },
+        "patch": {
+          "summary": "Update field on a customdata document",
+          "description": "",
+          "tags": ["customdata"],
+          "parameters": [
+            {
+              "name": "objectid",
+              "in": "path",
+              "description": "Unique ObjectID",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "body",
+              "in": "body",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/customdata"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Modified ok"
+            },
+            "400": {
+              "description": "Validation error"
+            },
+            "404": {
+              "description": "Document not found"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete a customdata document by _id",
+          "description": "",
+          "tags": ["customdata"],
+          "parameters": [
+            {
+              "name": "objectid",
+              "in": "path",
+              "description": "Unique ObjectID",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Deleted ok"
+            },
+            "404": {
+              "description": "Document not found"
+            }
+          }
+        }
+        
+      },
+      "/customdata/*": {
+        "delete": {
+          "summary": "Delete many customdata documents by query",
+          "description": "",
+          "tags": ["customdata"],
+          "parameters": [
+            {
+              "name": "q",
+              "in": "query",
+              "type": "string",
+              "description": "",
+              "required": true
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Deleted ok"
+            }
+          }
+        }
+      }
 },
 "definitions": {
   "users": {
@@ -1241,6 +1461,31 @@
       
     }
   }
-  
+  ,
+    "customdata": {
+      "type": "object",
+      
+      "properties": {
+        "_id": {
+          "type": "string",
+          "description": "System generated ObjectID"
+                  
+        },
+            
+              "team": {
+                "type": "string",
+                "description": " "
+                                
+              }
+        ,
+            
+              "data": {
+                "type": "string",
+                "description": " "
+                                
+              }
+        
+      }
+    }
   }
 }
