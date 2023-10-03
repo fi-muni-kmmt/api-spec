@@ -1,0 +1,721 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "energy-1ed6 REST API",
+        "description": "**restdb.io Swagger documentation**"
+    },
+    "host": "energy-1ed6.restdb.io",
+    "basePath": "/rest",
+    "schemes": [
+        "https"
+    ],
+	"securityDefinitions": {
+		"apikey": {
+			"type": "apiKey",
+			"name": "x-apikey",
+			"in": "header",
+			"description": "Requests should pass an x-apikey header."
+		}
+	},
+	"security": [
+		{"apikey": []}
+	],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+	"tags": [
+		{
+			"name": "users",
+			"description": "External Users of this application",
+			"externalDocs": {
+				"description": "Docs",
+				"url": "http://restdb.io/docs"
+			}
+		}
+		,
+		{
+			"name": "price-per-country",
+			"description": "",
+			"externalDocs": {
+				"description": "Docs",
+				"url": "http://restdb.io/docs"
+			}
+		}
+		
+	],
+    "paths": {
+			"/users": {
+				"get": {
+					"summary": "Get many users documents. All or by query",
+					"description": "",
+					"tags": ["users"],
+					"parameters": [
+						{
+							"name": "q",
+							"in": "query",
+							"type": "string",
+							"description": "Optional database query object. q={\"field\":\"val\"}",
+							"required": false
+						},
+						{
+							"name": "h",
+							"in": "query",
+							"type": "string",
+							"description": "Optional database query hint. h={\"$max\":1}",
+							"required": false
+						}
+					],
+					"responses": {
+						"200": {
+							"description": "Success",
+							"schema": {
+								"type": "array",
+								"items": {
+									"$ref": "#/definitions/users"
+								}
+							}
+						},
+						"500": {
+							"description": "Server error"
+						}
+					}
+				},
+				"post": {
+					"summary": "Create a new users document",
+					"description": "",
+					"tags": ["users"],
+					"parameters": [
+						{
+							"name": "body",
+							"in": "body",
+							"required": true,
+							"schema": {
+								"$ref": "#/definitions/users"
+							}
+						}
+					],
+					"responses": {
+						"201": {
+							"description": "Success",
+							"schema": {
+								"$ref": "#/definitions/users"
+							}
+						},
+						"400": {
+							"description": "Validation error"
+						}
+					}
+				}
+				
+			},
+			"/users/{objectid}": {
+				"get": {
+					"summary": "Get one users document by _id",
+					"description": "",
+					"tags": ["users"],
+					
+					"parameters": [
+						{
+							"name": "objectid",
+							"in": "path",
+							"description": "Unique ObjectID",
+							"required": true,
+							"type": "string"
+						},
+						{
+							"name": "h",
+							"in": "query",
+							"description": "Optional database query hint",
+							"required": false,
+							"type": "string"
+						}
+					],
+					"responses": {
+						"200": {
+							"description": "Success",
+							"schema": {
+								"type": "array",
+								"items": {
+									"$ref": "#/definitions/users"
+								}
+							}
+						},
+						"404": {
+							"description": "Document not found"
+						}
+					}
+				},
+				"put": {
+					"summary": "Update a users document by _id",
+					"description": "",
+					"tags": ["users"],
+					"parameters": [
+						{
+							"name": "objectid",
+							"in": "path",
+							"description": "Unique ObjectID",
+							"required": true,
+							"type": "string"
+						},
+						{
+							"name": "body",
+							"in": "body",
+							"required": true,
+							"schema": {
+								"$ref": "#/definitions/users"
+							}
+						}
+					],
+					"responses": {
+						"200": {
+							"description": "Modified ok"
+						},
+						"400": {
+							"description": "Validation error"
+						},
+						"404": {
+							"description": "Document not found"
+						}
+					}
+				},
+				"patch": {
+					"summary": "Update field on a users document",
+					"description": "",
+					"tags": ["users"],
+					"parameters": [
+						{
+							"name": "objectid",
+							"in": "path",
+							"description": "Unique ObjectID",
+							"required": true,
+							"type": "string"
+						},
+						{
+							"name": "body",
+							"in": "body",
+							"required": true,
+							"schema": {
+								"$ref": "#/definitions/users"
+							}
+						}
+					],
+					"responses": {
+						"200": {
+							"description": "Modified ok"
+						},
+						"400": {
+							"description": "Validation error"
+						},
+						"404": {
+							"description": "Document not found"
+						}
+					}
+				},
+				"delete": {
+					"summary": "Delete a users document by _id",
+					"description": "",
+					"tags": ["users"],
+					"parameters": [
+						{
+							"name": "objectid",
+							"in": "path",
+							"description": "Unique ObjectID",
+							"required": true,
+							"type": "string"
+						}
+					],
+					"responses": {
+						"200": {
+							"description": "Deleted ok"
+						},
+						"404": {
+							"description": "Document not found"
+						}
+					}
+				}
+				
+			},
+			"/users/*": {
+				"delete": {
+					"summary": "Delete many users documents by query",
+					"description": "",
+					"tags": ["users"],
+					"parameters": [
+						{
+							"name": "q",
+							"in": "query",
+							"type": "string",
+							"description": "",
+							"required": true
+						}
+					],
+					"responses": {
+						"200": {
+							"description": "Deleted ok"
+						}
+					}
+				}
+			}
+			,
+			"/price-per-country": {
+				"get": {
+					"summary": "Get many price-per-country documents. All or by query",
+					"description": "",
+					"tags": ["price-per-country"],
+					"parameters": [
+						{
+							"name": "q",
+							"in": "query",
+							"type": "string",
+							"description": "Optional database query object. q={\"field\":\"val\"}",
+							"required": false
+						},
+						{
+							"name": "h",
+							"in": "query",
+							"type": "string",
+							"description": "Optional database query hint. h={\"$max\":1}",
+							"required": false
+						}
+					],
+					"responses": {
+						"200": {
+							"description": "Success",
+							"schema": {
+								"type": "array",
+								"items": {
+									"$ref": "#/definitions/price-per-country"
+								}
+							}
+						},
+						"500": {
+							"description": "Server error"
+						}
+					}
+				},
+				"post": {
+					"summary": "Create a new price-per-country document",
+					"description": "",
+					"tags": ["price-per-country"],
+					"parameters": [
+						{
+							"name": "body",
+							"in": "body",
+							"required": true,
+							"schema": {
+								"$ref": "#/definitions/price-per-country"
+							}
+						}
+					],
+					"responses": {
+						"201": {
+							"description": "Success",
+							"schema": {
+								"$ref": "#/definitions/price-per-country"
+							}
+						},
+						"400": {
+							"description": "Validation error"
+						}
+					}
+				}
+				
+			},
+			"/price-per-country/{objectid}": {
+				"get": {
+					"summary": "Get one price-per-country document by _id",
+					"description": "",
+					"tags": ["price-per-country"],
+					
+					"parameters": [
+						{
+							"name": "objectid",
+							"in": "path",
+							"description": "Unique ObjectID",
+							"required": true,
+							"type": "string"
+						},
+						{
+							"name": "h",
+							"in": "query",
+							"description": "Optional database query hint",
+							"required": false,
+							"type": "string"
+						}
+					],
+					"responses": {
+						"200": {
+							"description": "Success",
+							"schema": {
+								"type": "array",
+								"items": {
+									"$ref": "#/definitions/price-per-country"
+								}
+							}
+						},
+						"404": {
+							"description": "Document not found"
+						}
+					}
+				},
+				"put": {
+					"summary": "Update a price-per-country document by _id",
+					"description": "",
+					"tags": ["price-per-country"],
+					"parameters": [
+						{
+							"name": "objectid",
+							"in": "path",
+							"description": "Unique ObjectID",
+							"required": true,
+							"type": "string"
+						},
+						{
+							"name": "body",
+							"in": "body",
+							"required": true,
+							"schema": {
+								"$ref": "#/definitions/price-per-country"
+							}
+						}
+					],
+					"responses": {
+						"200": {
+							"description": "Modified ok"
+						},
+						"400": {
+							"description": "Validation error"
+						},
+						"404": {
+							"description": "Document not found"
+						}
+					}
+				},
+				"patch": {
+					"summary": "Update field on a price-per-country document",
+					"description": "",
+					"tags": ["price-per-country"],
+					"parameters": [
+						{
+							"name": "objectid",
+							"in": "path",
+							"description": "Unique ObjectID",
+							"required": true,
+							"type": "string"
+						},
+						{
+							"name": "body",
+							"in": "body",
+							"required": true,
+							"schema": {
+								"$ref": "#/definitions/price-per-country"
+							}
+						}
+					],
+					"responses": {
+						"200": {
+							"description": "Modified ok"
+						},
+						"400": {
+							"description": "Validation error"
+						},
+						"404": {
+							"description": "Document not found"
+						}
+					}
+				},
+				"delete": {
+					"summary": "Delete a price-per-country document by _id",
+					"description": "",
+					"tags": ["price-per-country"],
+					"parameters": [
+						{
+							"name": "objectid",
+							"in": "path",
+							"description": "Unique ObjectID",
+							"required": true,
+							"type": "string"
+						}
+					],
+					"responses": {
+						"200": {
+							"description": "Deleted ok"
+						},
+						"404": {
+							"description": "Document not found"
+						}
+					}
+				}
+				
+			},
+			"/price-per-country/*": {
+				"delete": {
+					"summary": "Delete many price-per-country documents by query",
+					"description": "",
+					"tags": ["price-per-country"],
+					"parameters": [
+						{
+							"name": "q",
+							"in": "query",
+							"type": "string",
+							"description": "",
+							"required": true
+						}
+					],
+					"responses": {
+						"200": {
+							"description": "Deleted ok"
+						}
+					}
+				}
+			}
+			
+	},
+	"definitions": {
+		"users": {
+			"type": "object",
+			"required": ["email","active"],
+			"properties": {
+				"_id": {
+					"type": "string",
+					"description": "System generated ObjectID"
+									
+				},
+						
+							"email": {
+								"type": "string",
+								"description": "email address (created by system) (must be unique)"
+																
+							}
+				,
+						
+							"active": {
+								"type": "boolean",
+								"description": "user is activated (created by system) "
+																
+							}
+				
+			}
+		}
+		,
+		"price-per-country": {
+			"type": "object",
+			
+			"properties": {
+				"_id": {
+					"type": "string",
+					"description": "System generated ObjectID"
+									
+				},
+						
+							"time": {
+								"type": "string",
+								"description": "Created by import "
+																
+							}
+				,
+						
+							"austria": {
+								"type": "number",
+								"description": "Created by import "
+																
+							}
+				,
+						
+							"belgium": {
+								"type": "number",
+								"description": "Created by import "
+																
+							}
+				,
+						
+							"bulgaria": {
+								"type": "string",
+								"description": "Created by import "
+																
+							}
+				,
+						
+							"croatia": {
+								"type": "string",
+								"description": "Created by import "
+																
+							}
+				,
+						
+							"czechia": {
+								"type": "number",
+								"description": "Created by import "
+																
+							}
+				,
+						
+							"denmark": {
+								"type": "number",
+								"description": "Created by import "
+																
+							}
+				,
+						
+							"estonia": {
+								"type": "number",
+								"description": "Created by import "
+																
+							}
+				,
+						
+							"finland": {
+								"type": "number",
+								"description": "Created by import "
+																
+							}
+				,
+						
+							"france": {
+								"type": "number",
+								"description": "Created by import "
+																
+							}
+				,
+						
+							"germany": {
+								"type": "number",
+								"description": "Created by import "
+																
+							}
+				,
+						
+							"greece": {
+								"type": "number",
+								"description": "Created by import "
+																
+							}
+				,
+						
+							"hungary": {
+								"type": "number",
+								"description": "Created by import "
+																
+							}
+				,
+						
+							"ireland": {
+								"type": "number",
+								"description": "Created by import "
+																
+							}
+				,
+						
+							"italy": {
+								"type": "number",
+								"description": "Created by import "
+																
+							}
+				,
+						
+							"latvia": {
+								"type": "number",
+								"description": "Created by import "
+																
+							}
+				,
+						
+							"lithuania": {
+								"type": "number",
+								"description": "Created by import "
+																
+							}
+				,
+						
+							"luxembourg": {
+								"type": "number",
+								"description": "Created by import "
+																
+							}
+				,
+						
+							"netherlands": {
+								"type": "number",
+								"description": "Created by import "
+																
+							}
+				,
+						
+							"norway": {
+								"type": "number",
+								"description": "Created by import "
+																
+							}
+				,
+						
+							"poland": {
+								"type": "number",
+								"description": "Created by import "
+																
+							}
+				,
+						
+							"portugal": {
+								"type": "number",
+								"description": "Created by import "
+																
+							}
+				,
+						
+							"romania": {
+								"type": "number",
+								"description": "Created by import "
+																
+							}
+				,
+						
+							"serbia": {
+								"type": "string",
+								"description": "Created by import "
+																
+							}
+				,
+						
+							"slovakia": {
+								"type": "number",
+								"description": "Created by import "
+																
+							}
+				,
+						
+							"slovenia": {
+								"type": "number",
+								"description": "Created by import "
+																
+							}
+				,
+						
+							"spain": {
+								"type": "number",
+								"description": "Created by import "
+																
+							}
+				,
+						
+							"sweden": {
+								"type": "number",
+								"description": "Created by import "
+																
+							}
+				,
+						
+							"switzerland": {
+								"type": "number",
+								"description": "Created by import "
+																
+							}
+				
+			}
+		}
+		
+    }
+}
